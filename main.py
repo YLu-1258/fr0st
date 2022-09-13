@@ -17,9 +17,9 @@ def page_not_found(e):
 def index():
     return render_template("index.html")
 
-@app.route('/stub/')  # connects /stub/ URL to stub() function
+@app.route('/stub/')  # connects about_me.html URL to stub() function
 def stub():
-    return render_template("stub.html")
+    return render_template("about_me.html")
 
 # this runs the application on the development server
 if __name__ == "__main__":
