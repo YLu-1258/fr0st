@@ -7,26 +7,77 @@
 <!-- This is a replacement block for Body in base.html -->
 {% block body %}
     <!--Try building a new body here, bootstrap is a wise choice-->
-    <div class="px-5 py-5 mx-auto">
-        <h1 class="text-primary"><strong>About Me</strong></h1>
-        <p style= color:blue>My name is Alex</p>
-        <p style= color:darkcyan> I really like playing Tennis too 🎾</p>
-        
-        <p style= color:blue>My name is Shaurya</p>
-        <p style= color:darkcyan> I really like Python. </p> 
-
-        <p style= color:blue> My name is Haseeb. </p>
-        <p style= color:darkcyan> I like to code 💻, I like to play games 🎮, and I like to work out 🏋️ </p> 
-
-        <p style= color:blue>My name is Evan</p>
-        <p style= color:darkcyan> I really like sleeping. </p> 
-    </div>
-
-
-
-
+    <div class="px-5 py-5 mx-auto" style="height: 1000px;">
+        <h1 class="text-white"><strong>About Us</strong></h1>
+        <div class="row">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title"> 
+                        <p style= color:blue>About Evan</p>
+                    </h5>
+                    <p class="card-text">
+                        <ol style= color:darkcyan>
+                            <li>I like to sleep</li>
+                            <li>I like to eat</li>
+                        </ol>
+                    </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"> 
+                            <p style= color:blue>About Alex</p>
+                        </h5>
+                    <p class="card-text">
+                        <ol style= color:darkcyan>
+                            <li>I like to play Tennis 🎾</li>
+                        </ol>
+                    </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"> 
+                            <p style= color:blue>About Haseeb</p>
+                        </h5>
+                    <p class="card-text">
+                        <ol style= color:darkcyan>
+                            <li>I like to code 💻</li>
+                            <li>I like to play games 🎮</li>
+                            <li>I like to work out 🏋️</li>
+                        </ol>
+                    </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"> 
+                            <p style= color:blue>About Shaurya</p>
+                        </h5>
+                    <p class="card-text">
+                        <ol style= color:darkcyan>
+                            <li>I really like Python</li>
+                        </ol>
+                    </p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div> 
 {% endblock %}
 
-<!-- This is turning off birds background from base.html --> 
-{% block background %}
-{% endblock %}
+
+
+
+
+
+
+<!-- This is turning off birds background from base.html -->
