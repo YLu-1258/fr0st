@@ -26,6 +26,10 @@ def about():
 def scrum():
     return render_template("scrum.html")
 
+@app.route('/mine/')  # connects about_me.html URL to stub() function
+def mine():
+    return render_template("minesweeper.html")
+
 # this runs the application on the development server
 if __name__ == "__main__":
     app.run(debug=True)

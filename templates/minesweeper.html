@@ -1,0 +1,135 @@
+{% extends "layouts/base.html" %}
+{% set project = "Home" %}
+
+{% block body %}
+    <style>
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        h2, h3{
+            color: black;
+            font-family: 'Courier New', monospace;
+        }
+
+        #main {
+            background: white;
+            border-radius: 18px;
+            margin-top: 5%;
+            margin-bottom: 5%;
+            margin-left: 15%;
+            margin-right: 15%;
+        }
+
+        #title {
+            text-align: center;
+            padding: 1em;
+        }
+        #field {
+            display: block;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+
+        #lost {
+            text-align: center;
+            padding: 1em;
+        }
+
+        div.center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #field grid {
+            border-collapse: collapse;
+            font-size: 150%;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        #field table td {
+            background-color: rgb(201, 255, 251);
+            width: 30px;
+            min-width: 30px;
+            height: 30px;
+            font-family: 'Courier New', monospace;
+            min-height: 30px;
+            border: 1px solid rgb(137, 255, 243);  
+            border-radius:7px;
+        }
+
+        button {
+            width: 10em;
+            height: 5em;
+            background: linear-gradient(-45deg, #bbf0e5, rgb(196, 226, 238), rgb(176, 231, 231), rgb(97, 130, 226), rgb(176, 231, 231));
+                background-size: 400% 400%;
+                animation: gradient 15s ease infinite;
+            color: rgb(0,0,0);
+            font-weight: bolder;
+            border-radius: 20px 20px 20px 20px;
+            border: 1px solid rgb(137, 255, 243);
+        }
+    </style>
+
+    <script>
+        var attr = {
+            "rows": 10,
+            "cols": 10,
+            "mines":30,
+            "indicators":{1:"blue",2:"green",3:"yellow",4:"orange",5:"red",6:"pink",7:"purple",8:"brown","bomb":"💣", "flag":"🚩"}
+        }
+
+        function cellData(r,c){
+            return 
+        }
+
+        function generateTable() {
+            var table = document.createElement('table');
+            for (var i = 0; i < attr.rows; i++) {
+                row = document.createElement('tr')
+                for (var j = 0; i < attr.cols; j++) {
+                    cell = document.createElement('td').setAttribute("data-coord",i+"-"+j)
+                    row.appendChild(cell)
+                }
+                table.appendChild(row)
+            }
+        }
+
+        function cellOnClick() {
+            
+        }
+    </script>
+    <section id="main">
+      <div id="title">
+        <h2>FROST MINESWEEPER</h2>
+      </div>
+      
+      <div id="game">
+        <div id="field" class="center"></div>
+      </div>
+      
+      <div id="lost" style="display: none;">
+        <h3>You stepped on a Mine</h3>
+        <button id="new-game-button" type="button" onclick="reload()">Start Again</button>
+       </div>
+    </section>
+{% endblock %}
