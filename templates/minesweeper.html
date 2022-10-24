@@ -91,18 +91,33 @@
     </style>
 
     <script>
+        var field = document.getElementById("field");
         var attr = {
             "rows": 10,
             "cols": 10,
-            "mines":30,
+            "mines": 20,
             "indicators":{1:"blue",2:"green",3:"yellow",4:"orange",5:"red",6:"pink",7:"purple",8:"brown","bomb":"💣", "flag":"🚩"}
         }
-
-        function cellData(r,c){
-            return 
+        generateField();
+        function plantMines() {
+            //Add mines randomly
+            mine_coords = []; // maintain a array of already added mines
+            for (var i=0; i<attr.mines; i++) {
+                coord = [];
+                var row = Math.floor(Math.random() * 10); // Randomly generating row and column values
+                var col = Math.floor(Math.random() * 10);
+                coord.push(row, col);                     // adding row and column values to the mine_coords array to maintain distinct mines.
+                if (!mine_coords.includes(coord)) {
+                    var cell = field.rows[row].cells[col];
+                    mine_coords.push(coord);
+                    cell.setAttribute("data-mine","true");
+                }
+                
+            }
         }
 
-        function generateTable() {
+        function generateField() {
+            /*
             var table = document.createElement('table');
             for (var i = 0; i < attr.rows; i++) {
                 row = document.createElement('tr')
@@ -111,11 +126,38 @@
                     row.appendChild(cell)
                 }
                 table.appendChild(row)
+            }*/
+            field.innerHTML="";
+            for (var i = 0; i < attr.rows; i++){
+                r = row.insertRow(i);
+                for ( var j = 0; j < attr.cols; j++) {
+                    cell = row.insertCell(j);
+                    //cell.onlick = function() { cellOnClick(cell); };
+                    var type = document.createAttribute("data-mine");
+                    type.value = "false";
+                    cell.setAttributeNode(type);
+                }
+            }
+            plantMines();
+        }
+
+        function revealMines() {
+            //Highlight all mines in red
+            for (var i=0; i<10; i++) {
+                for (var j=0; j<10; j++) {
+                    if (field.rows[i].cells[j].getAttribute("data-mine")=="true") cell.innerHTML=attr.indicators.bomb;
+                }
             }
         }
 
-        function cellOnClick() {
-            
+        function cellOnClick(cell) {
+            if (cell.getAttribute("data-mine")=="true") {
+                revealMines();
+                alert("Game Oer");
+            }
+            else {
+                cell.className="dug"
+            }
         }
     </script>
     <section id="main">
@@ -123,9 +165,9 @@
         <h2>FROST MINESWEEPER</h2>
       </div>
       
-      <div id="game">
-        <div id="field" class="center"></div>
-      </div>
+      
+      <table id="field"></table>
+
       
       <div id="lost" style="display: none;">
         <h3>You stepped on a Mine</h3>
