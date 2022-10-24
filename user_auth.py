@@ -1,9 +1,10 @@
 # Storing user credentials in a python dictionary
 # These users will always be initialized with their given password and high score
+from base_64 import encode, decode
 user_data = {
-    "frst_adm":{"pwd":"fr0$7_FTW","high_score":100},
-    "frst_usr":{"pwd":"letmein","high_score":0},
-    "alex":{"pwd":"Aevus!","high_score":39}
+    "frst_adm":{"pwd":"ZnIwJDdfRlRX","high_score":100},
+    "frst_usr":{"pwd":"bGV0bWVpbg==","high_score":0},
+    "alex":{"pwd":"QWV2dXMh","high_score":39}
     }
 
 
@@ -14,7 +15,7 @@ def getCredentials():
 
 # Return the password from a given user
 def getPwd(usr):
-    return user_data[usr]["pwd"]
+    return decode(user_data[usr]["pwd"])
 
 # Return the password from a given user
 def getHighScore(usr):
@@ -35,11 +36,12 @@ def getChampion():
 # Automatically assign a high_score of 0
 # If the user already exists, only update the password
 def setUser(usr,pwd="password"):
+    pwd_encoded = encode(pwd)
     if usr not in user_data.keys():
-        user_data[usr] = {"pwd":pwd,"high_score":0}
+        user_data[usr] = {"pwd":pwd_encoded,"high_score":0}
     else:
-        user_data[usr]["pwd"] = pwd
-    return [usr,pwd]
+        user_data[usr]["pwd"] = pwd_encoded
+    return [usr,pwd,pwd_encoded]
 
 # Sets a new high score, if the user beats their old record
 def setScore(usr,score):
@@ -50,7 +52,7 @@ def verifyLogin(usr,pwd):
     if usr not in user_data.keys():
         return
     else:
-        return True if pwd == user_data[usr]["pwd"]  else False
+        return True if pwd == decode(user_data[usr]["pwd"])  else False
 
 champ = getChampion()[0]
 
