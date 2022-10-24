@@ -1,0 +1,177 @@
+{% extends "layouts/base.html" %}
+{% set project = "Home" %}
+
+{% block body %}
+    <style>
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        h2, h3{
+            color: black;
+            font-family: 'Courier New', monospace;
+        }
+
+        #main {
+            background: white;
+            border-radius: 18px;
+            margin-top: 5%;
+            margin-bottom: 5%;
+            margin-left: 15%;
+            margin-right: 15%;
+        }
+
+        #title {
+            text-align: center;
+            padding: 1em;
+        }
+        #field {
+            display: block;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+
+        #lost {
+            text-align: center;
+            padding: 1em;
+        }
+
+        div.center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #field grid {
+            border-collapse: collapse;
+            font-size: 150%;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        #field table td {
+            background-color: rgb(201, 255, 251);
+            width: 30px;
+            min-width: 30px;
+            height: 30px;
+            font-family: 'Courier New', monospace;
+            min-height: 30px;
+            border: 1px solid rgb(137, 255, 243);  
+            border-radius:7px;
+        }
+
+        button {
+            width: 10em;
+            height: 5em;
+            background: linear-gradient(-45deg, #bbf0e5, rgb(196, 226, 238), rgb(176, 231, 231), rgb(97, 130, 226), rgb(176, 231, 231));
+                background-size: 400% 400%;
+                animation: gradient 15s ease infinite;
+            color: rgb(0,0,0);
+            font-weight: bolder;
+            border-radius: 20px 20px 20px 20px;
+            border: 1px solid rgb(137, 255, 243);
+        }
+    </style>
+
+    <script>
+        var field = document.getElementById("field");
+        var attr = {
+            "rows": 10,
+            "cols": 10,
+            "mines": 20,
+            "indicators":{1:"blue",2:"green",3:"yellow",4:"orange",5:"red",6:"pink",7:"purple",8:"brown","bomb":"💣", "flag":"🚩"}
+        }
+        generateField();
+        function plantMines() {
+            //Add mines randomly
+            mine_coords = []; // maintain a array of already added mines
+            for (var i=0; i<attr.mines; i++) {
+                coord = [];
+                var row = Math.floor(Math.random() * 10); // Randomly generating row and column values
+                var col = Math.floor(Math.random() * 10);
+                coord.push(row, col);                     // adding row and column values to the mine_coords array to maintain distinct mines.
+                if (!mine_coords.includes(coord)) {
+                    var cell = field.rows[row].cells[col];
+                    mine_coords.push(coord);
+                    cell.setAttribute("data-mine","true");
+                }
+                
+            }
+        }
+
+        function generateField() {
+            /*
+            var table = document.createElement('table');
+            for (var i = 0; i < attr.rows; i++) {
+                row = document.createElement('tr')
+                for (var j = 0; i < attr.cols; j++) {
+                    cell = document.createElement('td').setAttribute("data-coord",i+"-"+j)
+                    row.appendChild(cell)
+                }
+                table.appendChild(row)
+            }*/
+            field.innerHTML="";
+            for (var i = 0; i < attr.rows; i++){
+                r = row.insertRow(i);
+                for ( var j = 0; j < attr.cols; j++) {
+                    cell = row.insertCell(j);
+                    //cell.onlick = function() { cellOnClick(cell); };
+                    var type = document.createAttribute("data-mine");
+                    type.value = "false";
+                    cell.setAttributeNode(type);
+                }
+            }
+            plantMines();
+        }
+
+        function revealMines() {
+            //Highlight all mines in red
+            for (var i=0; i<10; i++) {
+                for (var j=0; j<10; j++) {
+                    if (field.rows[i].cells[j].getAttribute("data-mine")=="true") cell.innerHTML=attr.indicators.bomb;
+                }
+            }
+        }
+
+        function cellOnClick(cell) {
+            if (cell.getAttribute("data-mine")=="true") {
+                revealMines();
+                alert("Game Oer");
+            }
+            else {
+                cell.className="dug"
+            }
+        }
+    </script>
+    <section id="main">
+      <div id="title">
+        <h2>FROST MINESWEEPER</h2>
+      </div>
+      
+      
+      <table id="field"></table>
+
+      
+      <div id="lost" style="display: none;">
+        <h3>You stepped on a Mine</h3>
+        <button id="new-game-button" type="button" onclick="reload()">Start Again</button>
+       </div>
+    </section>
+{% endblock %}

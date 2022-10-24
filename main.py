@@ -3,8 +3,9 @@ from flask import render_template  # import render_template from "public" flask 
 # import "packages" from "this" project
 from __init__ import app  # Definitions initialization
 from api import app_api # Blueprint import api definition
+from user_auth_api import auth_api
 from bp_projects.projects import app_projects # Blueprint directory import projects definition
-
+app.register_blueprint(auth_api)
 app.register_blueprint(app_api) # register api routes
 app.register_blueprint(app_projects) # register api routes
 
@@ -25,6 +26,10 @@ def about():
 @app.route('/scrum/')  # connects about_me.html URL to stub() function
 def scrum():
     return render_template("scrum.html")
+
+@app.route('/mine/')  # connects about_me.html URL to stub() function
+def mine():
+    return render_template("minesweeper.html")
 
 # this runs the application on the development server
 if __name__ == "__main__":
