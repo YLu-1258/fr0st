@@ -1,10 +1,10 @@
 version: '3'
 services:
         web:
-                image: flask_port_v1
+                image: fr0st_v1
                 build: .
                 ports:
-                        - "8086:8080"
+                        - "8045:8080"
                 volumes:
                         - persistent_volume:/app/volumes
 volumes:
@@ -13,4 +13,4 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /home/ubuntu/flask_portfolio/volumes
+      device: /home/ubuntu/p4t5_fr0st/volumes
