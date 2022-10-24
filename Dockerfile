@@ -1,17 +1,16 @@
 FROM docker.io/python:3.9
-
 WORKDIR /app
-
-# --- [Install python and pip] ---
+# --- Update environment and install python and pip ---
 RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y python3 python3-pip git
-RUN git clone https://github.com/nighthawkcoders/flask_portfolio.git /app
-
-RUN pip install --no-cache-dir -r requirements.txt
+  apt-get install -y python3 python3-pip git
+# --- Copy repo you updated with clone or pull ---
+COPY . /app
+# --- Install project specific dependencies ---
+RUN pip3 install --no-cache-dir -r requirements.txt
 RUN pip3 install gunicorn
-
-ENV GUNICORN_CMD_ARGS="--workers=1 --bind=0.0.0.0:8080"
-
+# --- Setup args to run 3 workers and run on port 8080 ---
+ENV GUNICORN_CMD_ARGS="--workers=3 --bind=0.0.0.0:8080"
+# --- Allow port 8080 to be accessed by system ---
 EXPOSE 8080
-
+# --- Run Web Application in production style ---
 CMD [ "gunicorn", "main:app" ]
