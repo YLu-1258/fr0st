@@ -1,13 +1,12 @@
 # Storing user credentials in a python dictionary
 # These users will always be initialized with their given password and high score
 from base_64 import encode, decode
+
 user_data = {
     "frst_adm":{"pwd":"ZnIwJDdfRlRX","high_score":100},
     "frst_usr":{"pwd":"bGV0bWVpbg==","high_score":0},
     "alex":{"pwd":"QWV2dXMh","high_score":39}
     }
-
-
 
 # VERY INSECURE, idk why I am doing this
 def getCredentials():

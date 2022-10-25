@@ -12,40 +12,49 @@ auth_api = Blueprint('a_api', __name__,
 a_api = Api(auth_api)
 
 class AuthAPI:
+    ## Exposes all the credentials and scores of each user
     class _ExposeAuth(Resource):
         def get(self):
             return jsonify(getCredentials())
 
+    ## Get the password of a certain user (ecoded)
     class _GetPwd(Resource):
         def get(self,usr):
             return jsonify(getPwd(usr))
 
+    ## Gets the score of a certain user
     class _GetScore(Resource):
         def get(self,usr):
             return jsonify(getHighScore(usr))
 
+    ## Gets the highest scorer
     class _GetLeader(Resource):
         def get(self):
             return jsonify(getChampion())
 
+    ## Verify login and authentication
     class _VerifyLogin(Resource):
         def get(self, usr,pwd):
             return jsonify(verifyLogin(usr,pwd))
 
+    ## Update the password of a user
     class _UpdatePwd(Resource):
         def get(self, usr,pwd):
             setUser(usr,pwd)
             return jsonify(getPwd(usr))  
 
+    # Update the score for a user
     class _UpdateScore(Resource):
         def get(self, usr,score):
             setScore(usr,score)
             return jsonify(getHighScore(usr))  
 
+    # Update the high scorer
     class _UpdateLeader(Resource):
         def get(self):
             return jsonify(getChampion())  
 
+    # Registers a new user
     class _Register(Resource):
         def get(self,usr,pwd="password"):
             return jsonify(setUser(usr,pwd))
