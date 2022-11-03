@@ -5,7 +5,7 @@ from base_64 import encode, decode
 user_data = {
     "frst_adm":{"pwd":"ZnIwJDdfRlRX","high_score":100},
     "frst_usr":{"pwd":"bGV0bWVpbg==","high_score":0},
-    "alex":{"pwd":"QWV2dXMh","high_score":39}
+    "alex":{"pwd":"QWV2dXMh","high_score":0}
     }
 
 # VERY INSECURE, idk why I am doing this
